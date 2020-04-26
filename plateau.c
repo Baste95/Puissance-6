@@ -1,0 +1,41 @@
+#include "plateau.h"
+
+Plateau_t remplir(Plateau_t plateau,int ligne_, int colonne_){ //Création du plateau de jeu
+  plateau.ligne = ligne_;
+  plateau.colonne = colonne_;
+  plateau.tab = malloc(plateau.ligne * sizeof(char*));
+  for(int ligne = 0; ligne < plateau.ligne; ligne++)
+    plateau.tab[ligne] = malloc(plateau.colonne * sizeof(*plateau.tab));
+  for(int i = 0; i < plateau.ligne; i++)
+    for(int j = 0; j < plateau.colonne; j++)
+      plateau.tab[i][j] = '~';
+  return plateau;
+}
+
+void aff(Plateau_t plateau){ //Affichage du plateau de jeu
+  printf("\n");
+  for(int k = 0; k < plateau.colonne; k++){
+    if(k < 9)
+      printf("  %d ",k+1);
+    else
+      printf(" %d ",k+1);
+  }
+  printf("\n");
+  for(int i = 0; i < plateau.ligne; i++){
+    for(int j = 0; j < plateau.colonne; j++){
+      printf("\033[32m| \033[0m%c ",plateau.tab[i][j]);
+    }
+    if(TEST)
+      printf("\033[32m| \033[0m%d\n",i + 1); // Pour afficher les lignes lors des tests
+    else
+      printf("\033[32m|\n");
+  }
+  printf("\033[0m");
+}
+
+void formater(Plateau_t plateau){
+  for(int i = 0; i < plateau.ligne; i++)
+    for(int j = 0; j < plateau.colonne; j++)
+      plateau.tab[i][j] = '~';
+}
+
